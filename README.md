@@ -2,9 +2,9 @@
 
 ## 📌 Project Overview
 
-This project is a SQL-based Delivery and Logistics Management System designed to analyze delivery operations, driver performance, vehicle information, customer reviews, payments, revenue, and delivery efficiency.
+This project is a SQL-based **Delivery & Logistics Management System** developed to analyze delivery operations, driver performance, vehicle information, customer reviews, payments, revenue, routes, and delivery efficiency.
 
-The project demonstrates how SQL can be used to transform raw operational data into meaningful business insights that can support data-driven decision making.
+The project demonstrates how SQL can be used to transform raw operational data into meaningful business insights that support data-driven decision making.
 
 The project follows a complete data analysis workflow:
 
@@ -15,172 +15,195 @@ The project follows a complete data analysis workflow:
 - Table relationships
 - Business analysis
 - Advanced SQL analysis
-- Performance analysis
+- KPI analysis
 - Business insights
+- Business recommendations
 
 ---
 
-## 🎯 Business Problem
+# 📊 Final Business KPIs
 
-A delivery and logistics company needs to understand:
+The following KPIs were generated from the cleaned delivery dataset using SQL.
+
+![Final Business KPIs](screenshots/Final_Business_KPIs.png)
+
+| KPI | Result |
+|---|---:|
+| Total Deliveries | 34 |
+| Completed Deliveries | 29 |
+| Cancellation Rate | 5.88% |
+| Total Completed Revenue | 8,700 |
+| Highest Revenue Driver | D006 |
+| D006 Revenue | 830 |
+| Highest Volume Pickup City | Bangalore |
+| Bangalore Completed Deliveries | 6 |
+| Highest Revenue Route | Mumbai → Mumbai |
+| Mumbai → Mumbai Revenue | 2,000 |
+| Highest Revenue Month | January 2025 |
+| January 2025 Revenue | 5,480 |
+| Highest Rated Driver | D009 |
+| D009 Average Rating | 5.0 |
+| Five-Star Review Percentage | 46.15% |
+
+---
+
+# 🎯 Business Problem
+
+A delivery and logistics company needs to understand its operational and financial performance.
+
+The company wants to answer questions such as:
 
 - Which drivers are performing best?
 - Which drivers generate the most revenue?
+- Which drivers have the highest completion rate?
+- Which drivers have high cancellation rates?
 - Which cities have the highest delivery volume?
 - Which routes generate the most revenue?
-- Which drivers have high cancellation rates?
+- Which routes have longer delivery distances?
 - How efficient are deliveries?
 - How satisfied are customers?
+- Which drivers receive the highest customer ratings?
 - Which payment methods generate the most revenue?
 - How does driver revenue change over time?
-- Which drivers are performing above or below their city average?
+- Which drivers perform above or below their city average?
 
-The objective of this project is to answer these questions using SQL and convert the results into actionable business insights.
+The objective of this project is to answer these business questions using SQL and convert the results into actionable business insights.
+
+---
+
+# 🎯 Project Objectives
+
+The main objectives of this project are:
+
+1. Build a relational delivery and logistics database.
+2. Load and analyze raw operational data.
+3. Identify and clean data-quality issues.
+4. Validate relationships between tables.
+5. Analyze driver performance.
+6. Analyze delivery operations.
+7. Analyze revenue and payments.
+8. Analyze customer satisfaction.
+9. Analyze cities and delivery routes.
+10. Perform advanced SQL analysis.
+11. Generate meaningful business KPIs.
+12. Convert SQL results into business insights and recommendations.
 
 ---
 
 # 🗄️ Database Structure
 
-The project contains five main operational tables and one combined analytical table.
+The project contains **five main operational tables** and **one combined analytical table**.
 
-### 1. Drivers
+## 1. Drivers
 
-Contains driver information.
+Stores information about delivery drivers.
 
-Important columns:
+### Important Columns
 
-- driver_id
-- driver_name
-- gender
-- age
-- city
-- joining_date
-- rating
-
-### 2. Vehicles
-
-Contains vehicle information assigned to drivers.
-
-Important columns:
-
-- vehicle_id
-- driver_id
-- vehicle_type
-- vehicle_model
-- fuel_type
-- capacity
-
-### 3. Deliveries
-
-Contains delivery transaction information.
-
-Important columns:
-
-- delivery_id
-- driver_id
-- vehicle_id
-- customer_id
-- pickup_city
-- delivery_city
-- delivery_date
-- distance_km
-- delivery_time_minutes
-- delivery_status
-
-### 4. Delivery Payments
-
-Contains payment and revenue information.
-
-Important columns:
-
-- payment_id
-- delivery_id
-- delivery_charge
-- driver_payment
-- company_commission
-- payment_method
-
-### 5. Delivery Reviews
-
-Contains customer review information.
-
-Important columns:
-
-- review_id
-- delivery_id
-- customer_id
-- rating
-- review_date
-- feedback
-
-### 6. Combined Delivery Data
-
-A consolidated table created by joining the operational tables for analytical purposes.
+| Column | Description |
+|---|---|
+| driver_id | Unique driver identifier |
+| driver_name | Driver name |
+| gender | Driver gender |
+| age | Driver age |
+| city | Driver's city |
+| joining_date | Driver joining date |
+| rating | Driver rating |
 
 ---
 
-# 🧹 Data Cleaning
+## 2. Vehicles
 
-The raw datasets contained several data-quality issues.
+Stores information about vehicles used for deliveries.
 
-The following cleaning activities were performed:
+### Important Columns
 
-### Duplicate Records
+| Column | Description |
+|---|---|
+| vehicle_id | Unique vehicle identifier |
+| driver_id | Driver assigned to vehicle |
+| vehicle_type | Type of vehicle |
+| vehicle_model | Vehicle model |
+| fuel_type | Fuel type |
+| capacity | Vehicle capacity |
 
-Duplicate records were identified and removed from the datasets.
+---
 
-### Missing Values
+## 3. Deliveries
 
-Missing values were identified using SQL conditions.
+Stores delivery transaction information.
 
-Important missing values were retained where replacing them would create false information.
+### Important Columns
 
-### Invalid Values
+| Column | Description |
+|---|---|
+| delivery_id | Unique delivery identifier |
+| driver_id | Driver handling the delivery |
+| vehicle_id | Vehicle used for delivery |
+| customer_id | Customer identifier |
+| pickup_city | Delivery pickup location |
+| delivery_city | Delivery destination |
+| delivery_date | Delivery date |
+| distance_km | Delivery distance |
+| delivery_time_minutes | Delivery time |
+| delivery_status | Delivery status |
 
-Invalid values were identified and corrected.
+---
 
-Examples include:
+## 4. Delivery Payments
 
-- Negative driver ages
-- Invalid driver ratings
-- Negative vehicle capacity
-- Negative delivery distance
-- Invalid delivery status
-- Negative delivery charges
-- Invalid payment methods
-- Invalid customer review ratings
+Stores payment and revenue information.
 
-### Business Validation
+### Important Columns
 
-Additional validation rules were applied across related tables.
+| Column | Description |
+|---|---|
+| payment_id | Unique payment identifier |
+| delivery_id | Related delivery |
+| delivery_charge | Customer delivery charge |
+| driver_payment | Payment made to driver |
+| company_commission | Company commission |
+| payment_method | Payment method |
 
-Examples:
+---
 
-- Delivery driver should exist in the Drivers table.
-- Delivery vehicle should exist in the Vehicles table.
-- Payment should be linked to a valid delivery.
-- Review should be linked to a valid delivery.
-- Driver payment and company commission should be logically consistent with delivery charge.
+## 5. Delivery Reviews
+
+Stores customer feedback and ratings.
+
+### Important Columns
+
+| Column | Description |
+|---|---|
+| review_id | Unique review identifier |
+| delivery_id | Related delivery |
+| customer_id | Customer identifier |
+| rating | Customer rating |
+| review_date | Review date |
+| feedback | Customer feedback |
+
+---
+
+## 6. Combined Delivery Data
+
+A consolidated table created by joining the operational tables.
+
+This table combines driver, vehicle, delivery, payment, and customer review information into a single analytical dataset.
 
 ---
 
 # 🔗 Table Relationships
 
-The tables are connected using logical relationships through SQL JOIN operations.
-
-Main relationships:
+The tables are connected through logical relationships using SQL `JOIN` operations.
 
 ```text
-Drivers
-   |
-   | driver_id
-   |
-Deliveries
-   |
-   +------------------+
-   |                  |
-vehicle_id        delivery_id
-   |                  |
-Vehicles        +-----+------+
-                |            |
-        Delivery Payments   Delivery Reviews
+                    DRIVERS
+                       |
+                    driver_id
+                       |
+                       ↓
+                  DELIVERIES
+                 /     |      \
+                /      |       \
+               ↓       ↓        ↓
+          VEHICLES   PAYMENTS   REVIEWS
