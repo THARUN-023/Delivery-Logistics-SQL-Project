@@ -25,7 +25,7 @@ The project follows a complete data analysis workflow:
 
 The following KPIs were generated from the cleaned delivery dataset using SQL.
 
-![Final Business KPIs](screenshots/Final_Business_KPIs.png)
+![Final Business KPIs](Final_Business_KPIs.png)
 
 | KPI | Result |
 |---|---:|
